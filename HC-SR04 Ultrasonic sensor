@@ -1,0 +1,58 @@
+// Define the pins used for the ultrasonic sensor
+const int trigPin = 5;  // Pin connected to the TRIGGER pin of the ultrasonic sensor
+const int echoPin = 18; // Pin connected to the ECHO pin of the ultrasonic sensor
+
+// Define the speed of sound in cm/microsecond
+#define SOUND_SPEED 0.034
+
+// Define the conversion factor from centimeters to inches
+#define CM_TO_INCH 0.393701
+
+// Variables to store the duration and calculated distance
+long duration;
+float distanceCm;
+float distanceInch;
+
+void setup() {
+  // Start the serial communication at a baud rate of 115200
+  Serial.begin(115200);
+
+  // Set the trigPin as an output to send trigger signal
+  pinMode(trigPin, OUTPUT);
+
+  // Set the echoPin as an input to read the echo signal
+  pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  // Clears the trigPin by setting it to LOW
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // Sends a 10 microsecond pulse to the trigPin to trigger the ultrasonic sensor
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Reads the echoPin and measures the time taken for the signal to return
+  duration = pulseIn(echoPin, HIGH);
+
+  // Calculate the distance in centimeters
+  // The formula for calculating distance from the duration is: distance = duration * speed of sound / 2
+  // Since the sound travels to the target and back, we divide by 2 to get one-way distance.
+  distanceCm = duration * SOUND_SPEED / 2;
+
+  // Convert the distance from centimeters to inches
+  distanceInch = distanceCm * CM_TO_INCH;
+
+  // Prints the distance in centimeters to the Serial Monitor
+  Serial.print("Distance (cm): ");
+  Serial.println(distanceCm);
+
+  // Prints the distance in inches to the Serial Monitor
+  Serial.print("Distance (inch): ");
+  Serial.println(distanceInch);
+
+  // Wait for 1 second before taking the next reading
+  delay(1000);
+}
