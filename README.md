@@ -20,6 +20,10 @@ Connect the ultrasonic sensor to the Arduino board as follows:
 - *GND (Sensor)* to *GND (Arduino)*
 - *TRIG (Sensor)* to *Digital Pin 5 (Arduino)*
 - *ECHO (Sensor)* to *Digital Pin 18 (Arduino)*
+  
+## Wiring diagram
+
+![image](https://github.com/Shivani9698/Ultrasonic-Sensor/assets/119753029/e33c3987-46c0-40b7-a9c7-84bd9d50c01f)
 
 ## How the Sketch Works
 
